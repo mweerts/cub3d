@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/02 02:00:51 by mweerts           #+#    #+#             */
-/*   Updated: 2020/02/04 18:02:14 by mweerts          ###   ########.fr       */
+/*   Created: 2019/10/07 23:55:23 by mweerts           #+#    #+#             */
+/*   Updated: 2020/02/07 18:55:41 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#include "libft.h"
 
-# include "../minilibx/mlx.h"
-# include "../libft/includes/libft.h"
-# include <math.h>
-# include <stdio.h>
+char	*ft_strdup(const char *s)
+{
+	char	*dest;
+	int		i;
 
-int		rgb_to_int(unsigned char red, unsigned char green, unsigned char blue);
-void	ft_putnbr_base(int nbr, char *base);
-int     error(int code);
-#endif
+	i = 0;
+	dest = malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (dest == NULL)
+		return (NULL);
+	while (s && s[i])
+	{
+		dest[i] = s[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}

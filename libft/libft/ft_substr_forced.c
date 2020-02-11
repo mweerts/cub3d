@@ -1,37 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_substr_forced.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/10 16:07:56 by mweerts           #+#    #+#             */
-/*   Updated: 2019/10/14 13:27:21 by mweerts          ###   ########.fr       */
+/*   Created: 2020/02/07 18:56:43 by mweerts           #+#    #+#             */
+/*   Updated: 2020/02/07 19:23:30 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(const char *s1, const char *s2)
+char	*ft_substr_forced(const char *s, unsigned int start, size_t len)
 {
-	int		i;
-	int		j;
-	char	*ret;
+	size_t		i;
+	char		*substr;
 
 	i = 0;
-	j = 0;
-	if (s1 == NULL || s2 == NULL)
-		return (NULL);
-	ret = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (ret == NULL)
-		return (NULL);
-	while (s1[i])
+	if (s == NULL)
 	{
-		ret[i] = s1[i];
-		i++;
+		substr = malloc(sizeof(char));
+		if (substr == NULL)
+			return (NULL);
+		substr[0] = '\0';
+		return (substr);
 	}
-	while (s2[j])
-		ret[i++] = s2[j++];
-	ret[i] = '\0';
-	return (ret);
+	substr = malloc(sizeof(char) * (len + 1));
+	if (substr == NULL)
+		return (NULL);
+	if (start <= ft_strlen(s))
+	{
+		while (i < len)
+			substr[i++] = s[start++];
+	}
+	substr[i] = '\0';
+	return (substr);
 }

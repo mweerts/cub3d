@@ -27,13 +27,6 @@ static int		ft_intlen(int n)
 	return (nb_char);
 }
 
-static int		ft_abs(int n)
-{
-	if (n < 0)
-		return (-n);
-	return (n);
-}
-
 char			*ft_itoa(int n)
 {
 	char	*str;

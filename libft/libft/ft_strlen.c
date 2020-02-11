@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/02 02:00:51 by mweerts           #+#    #+#             */
-/*   Updated: 2020/02/04 18:02:14 by mweerts          ###   ########.fr       */
+/*   Created: 2019/10/07 09:09:06 by mweerts           #+#    #+#             */
+/*   Updated: 2020/02/07 18:52:22 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#include "libft.h"
 
-# include "../minilibx/mlx.h"
-# include "../libft/includes/libft.h"
-# include <math.h>
-# include <stdio.h>
+size_t	ft_strlen(const char *s)
+{
+	size_t i;
 
-int		rgb_to_int(unsigned char red, unsigned char green, unsigned char blue);
-void	ft_putnbr_base(int nbr, char *base);
-int     error(int code);
-#endif
+	i = 0;
+	while (s && s[i])
+		i++;
+	return (i);
+}

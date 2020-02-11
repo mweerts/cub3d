@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   ft_str_create.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/02 02:00:51 by mweerts           #+#    #+#             */
-/*   Updated: 2020/02/04 18:02:14 by mweerts          ###   ########.fr       */
+/*   Created: 2020/02/07 19:44:58 by mweerts           #+#    #+#             */
+/*   Updated: 2020/02/07 19:53:26 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#include "libft.h"
 
-# include "../minilibx/mlx.h"
-# include "../libft/includes/libft.h"
-# include <math.h>
-# include <stdio.h>
+char	*ft_str_create(int c, int len)
+{
+	char	*str;
 
-int		rgb_to_int(unsigned char red, unsigned char green, unsigned char blue);
-void	ft_putnbr_base(int nbr, char *base);
-int     error(int code);
-#endif
+	if (!(str = malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	ft_memset(str, c, len);
+	str[len] = '\0';
+	return (str);
+}

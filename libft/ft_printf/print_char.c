@@ -1,24 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   print_char.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/02 02:00:51 by mweerts           #+#    #+#             */
-/*   Updated: 2020/02/04 18:02:14 by mweerts          ###   ########.fr       */
+/*   Created: 2020/01/05 05:46:57 by mweerts           #+#    #+#             */
+/*   Updated: 2020/02/07 19:38:20 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#include "libft.h"
 
-# include "../minilibx/mlx.h"
-# include "../libft/includes/libft.h"
-# include <math.h>
-# include <stdio.h>
+int	print_char(va_list ap, t_flag *flag)
+{
+	char	c;
+	int		count;
 
-int		rgb_to_int(unsigned char red, unsigned char green, unsigned char blue);
-void	ft_putnbr_base(int nbr, char *base);
-int     error(int code);
-#endif
+	c = va_arg(ap, int);
+	count = 1;
+	if (flag->minus)
+		ft_putchar(c);
+	while (flag->width > count)
+	{
+		if (flag->zero && !flag->minus)
+			count += ft_putchar('0');
+		else
+			count += ft_putchar(' ');
+	}
+	if (!flag->minus)
+		ft_putchar(c);
+	return (count);
+}

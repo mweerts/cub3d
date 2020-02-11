@@ -1,24 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/02 02:00:51 by mweerts           #+#    #+#             */
-/*   Updated: 2020/02/04 18:02:14 by mweerts          ###   ########.fr       */
+/*   Created: 2019/10/10 16:07:56 by mweerts           #+#    #+#             */
+/*   Updated: 2020/02/07 18:54:27 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#include "libft.h"
 
-# include "../minilibx/mlx.h"
-# include "../libft/includes/libft.h"
-# include <math.h>
-# include <stdio.h>
+char	*ft_strjoin(const char *s1, const char *s2)
+{
+	int		i;
+	int		j;
+	char	*ret;
 
-int		rgb_to_int(unsigned char red, unsigned char green, unsigned char blue);
-void	ft_putnbr_base(int nbr, char *base);
-int     error(int code);
-#endif
+	i = 0;
+	j = 0;
+	ret = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (ret == NULL)
+		return (NULL);
+	while (s1 && s1[i])
+	{
+		ret[i] = s1[i];
+		i++;
+	}
+	while (s2 && s2[j])
+		ret[i++] = s2[j++];
+	ret[i] = '\0';
+	return (ret);
+}

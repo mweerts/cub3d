@@ -1,24 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   print_percent.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/02 02:00:51 by mweerts           #+#    #+#             */
-/*   Updated: 2020/02/04 18:02:14 by mweerts          ###   ########.fr       */
+/*   Created: 2020/01/05 10:01:50 by mweerts           #+#    #+#             */
+/*   Updated: 2020/02/07 19:38:31 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#include "libft.h"
 
-# include "../minilibx/mlx.h"
-# include "../libft/includes/libft.h"
-# include <math.h>
-# include <stdio.h>
+int	print_percent(t_flag *flag)
+{
+	int	count;
 
-int		rgb_to_int(unsigned char red, unsigned char green, unsigned char blue);
-void	ft_putnbr_base(int nbr, char *base);
-int     error(int code);
-#endif
+	count = 1;
+	if (flag->minus)
+		ft_putchar('%');
+	while (flag->width > count)
+	{
+		if (flag->zero && !flag->minus)
+			count += ft_putchar('0');
+		else
+			count += ft_putchar(' ');
+	}
+	if (!flag->minus)
+		ft_putchar('%');
+	return (count);
+}

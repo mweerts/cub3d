@@ -20,7 +20,7 @@ $(NAME):	$(OBJS)
 			@echo "\x1b[1m\x1b[32mLIBFT :\x1b[0m"
 			@mv $(MLX_PATH)$(MLX) .
 			make -C $(LIBFT_PATH)
-			@echo "\x1b[1m\x1b[32mCompiling miniRT\x1b[0m"
+			@echo "\x1b[1m\x1b[32mCompiling cub3d\x1b[0m"
 			@gcc -I includes/ $(OBJS) $(LIBFT_PATH)$(LIBFT) $(MLX) -framework OpenGL -framework AppKit -o $(NAME)
 			
 clean:		

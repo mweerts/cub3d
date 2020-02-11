@@ -6,7 +6,7 @@
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/02 02:00:42 by mweerts           #+#    #+#             */
-/*   Updated: 2020/02/04 18:03:39 by mweerts          ###   ########.fr       */
+/*   Updated: 2020/02/10 19:51:05 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	*win_ptr;
 
 int exit_prog()
 {
-	write(STDERR_FILENO, "Fermeture de miniRT\n", 20);
+	ft_putstr_fd("Fermeture de cub3d\n", STDERR_FILENO);
 	exit(EXIT_SUCCESS);
 	return (0);
 }
