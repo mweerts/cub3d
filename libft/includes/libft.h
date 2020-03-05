@@ -6,7 +6,7 @@
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 20:31:57 by mweerts           #+#    #+#             */
-/*   Updated: 2020/02/07 20:04:43 by mweerts          ###   ########.fr       */
+/*   Updated: 2020/03/03 19:57:57 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,36 +25,6 @@ typedef struct	s_list
 	void			*content;
 	struct s_list	*next;
 }				t_list;
-
-typedef	struct	s_flag
-{
-	char	minus;
-	char	zero;
-	int		width;
-	int		precision;
-	char	format;
-	char	l;
-	char	ll;
-	char	h;
-	char	hh;
-	char	blank;
-	char	diese;
-	char	plus;
-}				t_flag;
-
-typedef	struct	s_convert
-{
-	char		c;
-	int			(*function)(va_list ap, t_flag *flag);
-}				t_convert;
-
-typedef struct	s_number
-{
-	char		*str;
-	char		sign;
-	int			len;
-	char		is_zero;
-}				t_number;
 
 void			*ft_memset(void *b, int c, size_t len);
 void			ft_bzero(void *s, size_t n);
@@ -107,20 +77,4 @@ char			*ft_str_create(int c, int len);
 int				ft_abs(int nb);
 
 int				get_next_line(int fd, char **line);
-
-int				ft_printf(const char *str, ...);
-int				print_char(va_list ap, t_flag *flag);
-int				print_string(va_list ap, t_flag *flag);
-int				print_int(va_list ap, t_flag *flag);
-int				print_uint(va_list ap, t_flag *flag);
-int				print_percent(t_flag *flag);
-int				print_hex(va_list ap, t_flag *flag);
-int				print_pointer(va_list ap, t_flag *flag);
-int				ft_isformat(int c);
-t_flag			parse(const char *str, va_list ap, int	*index);
-int				ft_ulonglongtoa(unsigned long long nbr,
-								t_number *number, int precision);
-void			print_width(t_flag *flag, int *count);
-t_number		get_number_hex(va_list ap, t_flag *flag);
-
 #endif

@@ -6,7 +6,7 @@
 #    By: mweerts <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/07 20:17:58 by mweerts           #+#    #+#              #
-#    Updated: 2020/02/07 20:04:23 by mweerts          ###   ########.fr        #
+#    Updated: 2020/03/03 19:58:01 by mweerts          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,17 +53,6 @@ SRCS =	libft/ft_memset.c\
 		libft/ft_abs.c\
 		\
 		gnl/get_next_line.c\
-		\
-		ft_printf/ft_printf.c\
-		ft_printf/print_char.c\
-		ft_printf/print_string.c\
-		ft_printf/print_int.c\
-		ft_printf/print_uint.c\
-		ft_printf/print_percent.c\
-		ft_printf/print_hex.c\
-		ft_printf/print_pointer.c\
-		ft_printf/utils.c\
-		ft_printf/parser.c
 
 SRCS_BONUS =	ft_lstnew_bonus.c\
 				ft_lstadd_front_bonus.c\

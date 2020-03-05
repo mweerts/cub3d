@@ -6,14 +6,11 @@
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/02 02:00:42 by mweerts           #+#    #+#             */
-/*   Updated: 2020/02/10 19:51:05 by mweerts          ###   ########.fr       */
+/*   Updated: 2020/03/05 01:42:55 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	*mlx_ptr;
-void	*win_ptr;
 
 int exit_prog()
 {
@@ -24,26 +21,45 @@ int exit_prog()
 
 int key_hook(int keycode, void *param)
 {
-	param = NULL;
+	t_game *game;
+
+	game = (t_game *)param;
 	if (keycode == 53)
 		exit_prog();
+	if (keycode == 123)
+		game->player.posX -= 1;
+	if (keycode == 124)
+		game->player.posX += 1;
+	if (keycode == 125)
+		game->player.posY += 1;
+	if (keycode == 126)
+		game->player.posY -= 1;
+
+	mlx_clear_window(game->mlx_ptr, game->win_ptr);
+	draw_rectangle(game->player.posX, game->player.posY, 500, get_color(255, 255, 255), game);
+
 	return (0);
 }
 
-
-
-int main()
+/*void	init_game(t_game *game)
 {
-	int width;
-	int height;
+	game->mlx_ptr = mlx_init();
+	if (!(game->win_ptr = mlx_new_window(game->mlx_ptr, game->infos.screenWidth, game->infos.screenHeight, "cub3d")))
+		error("Erreur lors de la création de la fenêtre.");
+	mlx_hook(game->win_ptr, 17, 1L << 17, exit_prog, 0);
+	mlx_key_hook(game->win_ptr, key_hook, 0);
+	mlx_loop(game->mlx_ptr);
+}*/
 
-	width = 200;
-	height = 200;
+int main(int argc, char **argv)
+{
+	t_game game;
 
-	mlx_ptr = mlx_init();
-	if (!(win_ptr = mlx_new_window(mlx_ptr, 600, 600, "miniRT")))
-		return (error(1));
-	mlx_hook(win_ptr, 17, 1L << 17, exit_prog, 0);
-	mlx_key_hook(win_ptr, key_hook, 0);
-	mlx_loop(mlx_ptr);
+	//if (argc < 2)
+	//	return(error("Argument manquant."));
+
+	parse(&game.infos, "test.cub");
+	init_game(&game);
+	draw_rectangle(game.player.posX, game.player.posY, 500, get_color(255, 255, 255), &game);
+	mlx_loop(game.mlx_ptr);
 }

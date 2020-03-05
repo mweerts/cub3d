@@ -1,35 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/22 21:38:18 by mweerts           #+#    #+#             */
-/*   Updated: 2020/03/04 19:19:32 by mweerts          ###   ########.fr       */
+/*   Created: 2020/03/04 19:14:44 by mweerts           #+#    #+#             */
+/*   Updated: 2020/03/05 01:26:23 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		rgb_to_int(t_color color)
+void	draw_rectangle(int x, int y, int width, t_color color, t_game *game)
 {
-	int	ret;
+	int i;
+	int j;
 
-	ret = 0;
-	ret += (int)color.blue;
-	ret += (int)color.green * 256;
-	ret += (int)color.red * 65536;
-
-	return (ret); 
+	i = 0;
+	while(i < width)
+	{
+		j = 0;
+		while(j < width)
+		{
+			mlx_pixel_put(game->mlx_ptr, game->win_ptr, x + i, y + j, rgb_to_int(color));
+			j++;
+		}
+		i++;
+	}
 }
 
-t_color	get_color(unsigned char red, unsigned char green, unsigned char blue)
+void	draw_line(int x, int y, t_color color, t_game *game)
 {
-	t_color color;
-
-	color.red = red;
-	color.green = green;
-	color.blue = blue;
-	return (color);
+	
 }
