@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*    main.c                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/01 15:39:33 by mweerts           #+#    #+#             */
-/*   Updated: 2020/05/01 15:53:46 by mweerts          ###   ########.fr       */
+/*   Updated: 2020/05/01 19:39:05 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,26 @@
 static void		setup_mlx(t_game *game)
 {
 	if (!(game->mlx_ptr = mlx_init()))
-		error("Minilibx initialisation failed.");
+		error("Erreur lors de l'initialisation de la minilibx.");
 	if (!load_image(game->map.tex_no, &(game->tex_no), game->mlx_ptr))
-		error("North texture couldn't be load.");
+		error("Erreur lors du chargement de la texture nord.");
 	if (!load_image(game->map.tex_so, &(game->tex_so), game->mlx_ptr))
-		error("South texture couldn't be load.");
+		error("Erreur lors du chargement de la texture sud.");
 	if (!load_image(game->map.tex_ea, &(game->tex_ea), game->mlx_ptr))
-		error("East texture couldn't be load.");
+		error("Erreur lors du chargement de la texture est.");
 	if (!load_image(game->map.tex_we, &(game->tex_we), game->mlx_ptr))
-		error("West texture couldn't be load.");
+		error("Erreur lors du chargement de la texture ouest.");
 	if (!load_image(game->map.tex_s, &(game->tex_s), game->mlx_ptr))
-		error("Sprite texture couldn't be load.");
+		error("Erreur lors du chargement de la texture de l'objet.");
 	if (!(game->win_ptr = mlx_new_window(game->mlx_ptr, game->map.res[0],
 		game->map.res[1], "cub3d")))
-		error("The window couldnt't be created..");
+		error("Erreur lors de la creation de la fenetre.");
 	if (!(game->img.img = mlx_new_image(game->mlx_ptr, game->map.res[0],
 		game->map.res[1])))
-		error("Image couldn't be created.");
+		error("Erreur lors de la creation de l'image.");
 	if (!(game->img.data = mlx_get_data_addr(game->img.img, &(game->img.bpp),
 					&(game->img.size_line), &(game->img.endian))))
-		error("Image data couldn't be converted to string.");
+		error("Erreur avec les donnees de l'image.");
 	game->img.w = game->map.res[0];
 	game->img.h = game->map.res[1];
 }
@@ -74,15 +74,15 @@ int				main(int argc, char **argv)
 	int		screenshot;
 
 	if (argc < 2 || argc > 3)
-		error(ERR_ARG_COUNT);
+		error("Nombre d'arguments invalide.");
 	screenshot = (argc == 3 && !ft_strncmp(argv[2], "--save",
 				(ft_strlen(argv[2]) > 6 ? ft_strlen(argv[2]) : 6)));
 	if (argc == 3 && !screenshot)
-		error(ERR_ARG_SAVE);
+		error("Second argument invalide.");
 	init_game(&game);
 	parse_map(argv[1], &(game.map));
 	if (!(game.p.rays = malloc(sizeof(t_ray) * game.map.res[0])))
-		error(ERR_ALLOCATION);
+		error("Erreur d'allocation memoire.");
 	setup_mlx(&game);
 	place_player(&game);
 	game.p.proj_dist = fabs((game.map.res[0] / 2.0) /

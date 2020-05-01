@@ -28,6 +28,7 @@ MLX_PATH = ./minilibx-linux/
 MLX = libmlx.a
 FLAGS = #-Wall -Wextra -Werror
 MAKEFLAGS += --no-print-directory
+INCLUDES = -I includes/ -I libft/includes
 
 all: $(NAME)
 
@@ -35,10 +36,9 @@ $(NAME):	$(OBJS)
 			@echo "\033[0;32m\e[1mMLX\033[0m"
 			@make -C $(MLX_PATH)
 			@echo "\033[0;32m\e[1mLIBFT\033[0m"
-			@mv $(MLX_PATH)$(MLX) .
 			@make -C $(LIBFT_PATH)
 			@echo "\033[0;32m\e[1mCompiling cub3d\033[0m"
-			@gcc -I includes/ $(OBJS) $(LIBFT_PATH)$(LIBFT) $(MLX) -lbsd -lX11 -lXext -lm -o $(NAME)
+			@gcc $(INCLUDES) $(OBJS) $(LIBFT_PATH)$(LIBFT) $(MLX_PATH)$(MLX) -lbsd -lX11 -lXext -lm -o $(NAME)
 			
 clean:		
 			@echo "\033[0;32m\e[1mCLEAN\033[0m"
@@ -58,4 +58,4 @@ re: fclean all
 
 %.o: %.c
 			@echo "\033[0;32m\e[1m[cub3d]\033[0m Compiling $@"
-			@gcc $(FLAGS) -I includes/ -c -o $@ $<
+			@gcc $(FLAGS) $(INCLUDES) -c -o $@ $<

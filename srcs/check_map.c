@@ -6,7 +6,7 @@
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/01 15:29:54 by mweerts           #+#    #+#             */
-/*   Updated: 2020/05/01 15:29:58 by mweerts          ###   ########.fr       */
+/*   Updated: 2020/05/01 19:21:49 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		check_end(char **line, t_map *map)
 	static int end;
 
 	if (end == 1)
-		error(ERR_MAP);
+		error("Map incorrecte.");
 	if (!(*line)[0])
 	{
 		if (ft_lstsize(map->map_d) == 0)

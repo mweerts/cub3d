@@ -6,13 +6,13 @@
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/01 15:35:55 by mweerts           #+#    #+#             */
-/*   Updated: 2020/05/01 15:45:24 by mweerts          ###   ########.fr       */
+/*   Updated: 2020/05/01 19:37:12 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_strdel(char **as)
+void		ft_strdel(char **as)
 {
 	if (as && *as)
 	{
@@ -21,7 +21,7 @@ void	ft_strdel(char **as)
 	}
 }
 
-t_point			point(double x, double y)
+t_point		point(double x, double y)
 {
 	t_point point;
 
@@ -30,21 +30,21 @@ t_point			point(double x, double y)
 	return (point);
 }
 
-t_list			*point_lstnew(double x, double y)
+t_list		*point_lstnew(double x, double y)
 {
 	t_point	*point;
 	t_list	*elem;
 
 	if (!(point = malloc(sizeof(t_point))))
-		error(ERR_ALLOCATION);
+		error("Erreur d'allocation memoire.");
 	point->x = x;
 	point->y = y;
 	if (!(elem = ft_lstnew(point)))
-		error(ERR_ALLOCATION);
+		error("Erreur d'allocation memoire.");
 	return (elem);
 }
 
-void			swap(t_point *p, t_point *p2)
+void		swap(t_point *p, t_point *p2)
 {
 	t_point tmp;
 

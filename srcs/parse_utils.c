@@ -6,7 +6,7 @@
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/01 15:42:10 by mweerts           #+#    #+#             */
-/*   Updated: 2020/05/01 15:42:19 by mweerts          ###   ########.fr       */
+/*   Updated: 2020/05/01 19:18:39 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,10 @@ int		parse_color(char *line, t_map *map)
 	char	**split;
 
 	if (line[1] != ' ')
-		error(ERR_COLOR);
+		error("Couleur incorrecte.");
 	split = ft_split(line + 1, ',');
 	if (!check_split(line, split))
-		error(ERR_COLOR);
+		error("Couleur incorrecte.");
 	i = -1;
 	while (++i < 3)
 		rgb[i] = ft_atoi(split[i]);
@@ -110,13 +110,13 @@ int		parse_color(char *line, t_map *map)
 		free(split[i - 4]);
 	free(split);
 	if (!ft_isdigit(line[ft_strlen(line) - 1]) || (col = rgbtoint(rgb)) == -1)
-		error(ERR_COLOR);
+		error("Couleur incorrecte.");
 	if (line[0] == 'F' && map->col_f == -1)
 		map->col_f = col;
 	else if (line[0] == 'C' && map->col_c == -1)
 		map->col_c = col;
 	else
-		error(ERR_COLOR);
+		error("Couleur incorrecte.");
 	return (1);
 }
 

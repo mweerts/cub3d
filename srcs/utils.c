@@ -6,7 +6,7 @@
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/01 15:33:52 by mweerts           #+#    #+#             */
-/*   Updated: 2020/05/01 15:34:59 by mweerts          ###   ########.fr       */
+/*   Updated: 2020/05/01 19:41:34 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		ft_endswith(char *str, char *end)
 	return (1);
 }
 
-int	ft_inrange(int i, int min, int max)
+int		ft_inrange(int i, int min, int max)
 {
 	return (i >= min && i < max);
 }
@@ -58,7 +58,7 @@ size_t	ft_numberlen(int number, unsigned int baselen)
 	return (res);
 }
 
-int	ft_onlypattern(char *str, char *pattern)
+int		ft_onlypattern(char *str, char *pattern)
 {
 	int i;
 	int j;

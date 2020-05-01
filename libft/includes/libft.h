@@ -6,7 +6,7 @@
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 20:31:57 by mweerts           #+#    #+#             */
-/*   Updated: 2020/05/01 15:56:53 by mweerts          ###   ########.fr       */
+/*   Updated: 2020/05/01 19:57:59 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ int				ft_atoi(const char *str);
 void			*ft_calloc(size_t count, size_t size);
 char			*ft_strdup(const char *s);
 char			*ft_substr(const char *s, unsigned int start, size_t len);
-char			*ft_substr_forced(const char *s, unsigned int start, size_t len);	
+char			*ft_substr_forced(const char *s, unsigned int start,
+								size_t len);
 char			*ft_strjoin(const char *s1, const char *s2);
 char			*ft_strjoin_free(char *s1, char *s2);
 char			*ft_strtrim(const char *s1, const char *set);
@@ -76,6 +77,5 @@ t_list			*ft_lstmap(t_list *l, void *(*f)(void *), void (*del)(void *));
 t_list			*ft_lstat(t_list *list, size_t index);
 char			*ft_str_create(int c, int len);
 int				ft_abs(int nb);
-
 int				get_next_line(int fd, char **line);
 #endif

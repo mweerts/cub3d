@@ -6,7 +6,7 @@
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/02 02:00:51 by mweerts           #+#    #+#             */
-/*   Updated: 2020/05/01 16:04:39 by mweerts          ###   ########.fr       */
+/*   Updated: 2020/05/01 19:59:44 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,43 +30,22 @@
 # define FACE_WEST 2
 # define FACE_EAST 3
 # define TRANSPARENT_COLOR 0x000000
-# define MAX_WIDTH 2560
-# define MAX_HEIGHT	1400
-# define ERR_ARG_COUNT "Invalid number of arguments. Use ./cub3d <map> [--save]"
-# define ERR_ARG_SAVE "Invalid second argument. Use ./cub3d <map> [--save]"
-# define ERR_ALLOCATION "An allocation error has occured."
-# define ERR_UNDEF_PARAM "Undefined parameter in the given file."
-# define ERR_MISSING_PARAM "Missing parameters in the given file"
-# define ERR_RESOLUTION "Incorrect resolution in the given file."
-# define ERR_TEXTURE "Incorrect texture in the given file."
-# define ERR_COLOR "Incorrect color in the given file."
-# define ERR_MAP "Incorrect map description in the given file."
-# define ERR_FILE_READ "Unable to read the given file."
-# define ERR_FILE_OPEN "Unable to open the given file."
-# define ERR_NOT_CUB "The given file is not a .cub file."
-# define ERR_SCREEN_OPEN "The screenshot file couldn't be opened."
-# define ERR_SCREEN_WRITE "The screenshot file couldn't be written."
+# define MAX_WIDTH 1920
+# define MAX_HEIGHT	1080
 
 # define K_UP 119
 # define K_DOWN 115
 # define K_LEFT 97
 # define K_RIGHT 100
-# define K_CAMUP 126
-# define K_CAMDOWN 125
 # define K_CAMLEFT 65361
 # define K_CAMRIGHT 65363
 # define K_ESC 65307
-# define K_SCREENSHOT 39
 
 # define CUBE_SIZE 1920
 # define PLAYER_SIZE 67
-# define MOVE_SPEED 240
+# define MOVE_SPEED 200
 # define CAM_SPEED 2.33
-# define CAM_SPEED_V 10
 # define FOV 60
-# define MINIMAP_SIZE 200
-# define SCOPE_OFFSET 5
-# define MAX_STAMINA 200
 
 typedef struct		s_map
 {
@@ -172,5 +151,10 @@ int					actions(void *param);
 int					render(t_game *game, int save);
 int					load_image(char *file, t_image *img, void *mlx_ptr);
 int					check_end(char **line, t_map *map);
+int					ft_endswith(char *s, char *charset);
+size_t				ft_numberlen(int number, unsigned int baselen);
+size_t				ft_skipcharset(char *s, char *charset);
+int					ft_onlypattern(char *s, char *pattern);
+int					ft_inrange(int i, int min, int max);
 
 #endif

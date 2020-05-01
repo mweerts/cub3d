@@ -6,7 +6,7 @@
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/01 15:44:43 by mweerts           #+#    #+#             */
-/*   Updated: 2020/05/01 15:46:23 by mweerts          ###   ########.fr       */
+/*   Updated: 2020/05/01 19:24:32 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,10 @@ void		save_image(t_image img)
 
 	if (!(fd = open("screenshot.bmp", O_WRONLY | O_CREAT, S_IWUSR | S_IRUSR
 					| S_IROTH | S_IRGRP)))
-		error(ERR_SCREEN_OPEN);
+		error("Erreur lors de l'ouverture de la capture d'ecran.");
 	if (!write_header(fd, 54 + (img.w * img.h), img))
-		error(ERR_SCREEN_WRITE);
+		error("Erreur lors de l'enregistrement de la capture d'ecran.");
 	if (!write_data(fd, img))
-		error(ERR_SCREEN_WRITE);
+		error("Erreur lors de l'enregistrement de la capture d'ecran.");
 	close(fd);
 }

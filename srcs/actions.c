@@ -6,7 +6,7 @@
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/01 15:28:58 by mweerts           #+#    #+#             */
-/*   Updated: 2020/05/01 15:29:31 by mweerts          ###   ########.fr       */
+/*   Updated: 2020/05/01 17:42:35 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,9 @@ int			keys_actions(int key, t_game *game)
 		game->p.cam_angle = constrain(game->p.cam_angle - CAM_SPEED, 0, 360);
 	else if (key == K_CAMRIGHT)
 		game->p.cam_angle = constrain(game->p.cam_angle + CAM_SPEED, 0, 360);
-	else if (key == K_CAMUP)
-		game->floor_coef -= CAM_SPEED_V;
-	else if (key == K_CAMDOWN)
-		game->floor_coef += CAM_SPEED_V;
 	else if (key == K_UP || key == K_DOWN || key == K_LEFT || key == K_RIGHT)
 		move_player(game, key
 			, 0 + MOVE_SPEED * (key == K_RIGHT || key == K_LEFT ? 0.75 : 1));
-	else if (key == K_SCREENSHOT)
-		return (8);
 	else
 		return (1);
 	return (0);

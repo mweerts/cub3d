@@ -6,7 +6,7 @@
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/01 15:43:31 by mweerts           #+#    #+#             */
-/*   Updated: 2020/05/01 15:43:37 by mweerts          ###   ########.fr       */
+/*   Updated: 2020/05/01 18:51:26 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_point			*ft_lsttotab(t_list *list)
 	i = 0;
 	size = ft_lstsize(list);
 	if (!(res = malloc(sizeof(t_point) * size)))
-		error(ERR_ALLOCATION);
+		error("Erreur d'allocation memoire.");
 	while (i < size)
 	{
 		res[i] = *(t_point*)(list->content);
