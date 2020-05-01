@@ -6,7 +6,7 @@
 #    By: mweerts <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/07 20:17:58 by mweerts           #+#    #+#              #
-#    Updated: 2020/03/03 19:58:01 by mweerts          ###   ########.fr        #
+#    Updated: 2020/05/01 16:02:45 by mweerts          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,38 +53,42 @@ SRCS =	libft/ft_memset.c\
 		libft/ft_abs.c\
 		\
 		gnl/get_next_line.c\
-
-SRCS_BONUS =	ft_lstnew_bonus.c\
-				ft_lstadd_front_bonus.c\
-				ft_lstsize_bonus.c\
-				ft_lstlast_bonus.c\
-				ft_lstadd_back_bonus.c\
-				ft_lstdelone_bonus.c\
-				ft_lstclear_bonus.c\
-				ft_lstiter_bonus.c\
-				ft_lstmap_bonus.c
+		\
+		libft/ft_lstnew_bonus.c\
+		libft/ft_lstadd_front_bonus.c\
+		libft/ft_lstsize_bonus.c\
+		libft/ft_lstlast_bonus.c\
+		libft/ft_lstadd_back_bonus.c\
+		libft/ft_lstdelone_bonus.c\
+		libft/ft_lstclear_bonus.c\
+		libft/ft_lstiter_bonus.c\
+		libft/ft_lstmap_bonus.c \
+		libft/ft_lstat_bonus.c
 
 OBJS= $(SRCS:.c=.o)
 OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 FLAGS = -Wall -Wextra -Werror
 
-all: $(NAME)
+all: bonus
 
 $(NAME):	$(OBJS)
-			ar rc $(NAME) $(OBJS)
-			ranlib $(NAME)
+			@ar rc $(NAME) $(OBJS)
+			@ranlib $(NAME)
 
 %.o: %.c
-		gcc $(FLAGS) -I includes/ -c -o $@ $<
+		@echo "\033[0;32m\e[1m[libft]\033[0m Compiling $@"
+		@gcc $(FLAGS) -I includes/ -c -o $@ $<
 
 clean:
-		rm -rf $(OBJS) $(OBJS_BONUS)
+		@echo "\033[0;32m\e[1m[libft]\033[0m clean"
+		@rm -rf $(OBJS) $(OBJS_BONUS)
 
 fclean: clean
-		rm -rf $(NAME)
+		@echo "\033[0;32m\e[1m[libft]\033[0m force clean"
+		@rm -rf $(NAME)
 
 re: fclean all
 
 bonus:	$(OBJS) $(OBJS_BONUS)
-		ar rc $(NAME) $(OBJS) $(OBJS_BONUS)
-		ranlib $(NAME)
+		@ar rc $(NAME) $(OBJS) $(OBJS_BONUS)
+		@ranlib $(NAME)

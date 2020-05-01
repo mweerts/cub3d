@@ -6,11 +6,13 @@
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:54:18 by mweerts           #+#    #+#             */
-/*   Updated: 2020/02/07 18:59:33 by mweerts          ###   ########.fr       */
+/*   Updated: 2020/05/01 14:25:32 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+#define OPEN_MAX 10
 
 static int	get_line(char **str, char **line)
 {

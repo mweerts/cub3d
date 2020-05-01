@@ -1,65 +1,97 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*    main.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/02 02:00:42 by mweerts           #+#    #+#             */
-/*   Updated: 2020/03/05 01:42:55 by mweerts          ###   ########.fr       */
+/*   Created: 2020/05/01 15:39:33 by mweerts           #+#    #+#             */
+/*   Updated: 2020/05/01 15:53:46 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int exit_prog()
+static void		setup_mlx(t_game *game)
 {
-	ft_putstr_fd("Fermeture de cub3d\n", STDERR_FILENO);
-	exit(EXIT_SUCCESS);
-	return (0);
+	if (!(game->mlx_ptr = mlx_init()))
+		error("Minilibx initialisation failed.");
+	if (!load_image(game->map.tex_no, &(game->tex_no), game->mlx_ptr))
+		error("North texture couldn't be load.");
+	if (!load_image(game->map.tex_so, &(game->tex_so), game->mlx_ptr))
+		error("South texture couldn't be load.");
+	if (!load_image(game->map.tex_ea, &(game->tex_ea), game->mlx_ptr))
+		error("East texture couldn't be load.");
+	if (!load_image(game->map.tex_we, &(game->tex_we), game->mlx_ptr))
+		error("West texture couldn't be load.");
+	if (!load_image(game->map.tex_s, &(game->tex_s), game->mlx_ptr))
+		error("Sprite texture couldn't be load.");
+	if (!(game->win_ptr = mlx_new_window(game->mlx_ptr, game->map.res[0],
+		game->map.res[1], "cub3d")))
+		error("The window couldnt't be created..");
+	if (!(game->img.img = mlx_new_image(game->mlx_ptr, game->map.res[0],
+		game->map.res[1])))
+		error("Image couldn't be created.");
+	if (!(game->img.data = mlx_get_data_addr(game->img.img, &(game->img.bpp),
+					&(game->img.size_line), &(game->img.endian))))
+		error("Image data couldn't be converted to string.");
+	game->img.w = game->map.res[0];
+	game->img.h = game->map.res[1];
 }
 
-int key_hook(int keycode, void *param)
+static void		place_player(t_game *game)
 {
-	t_game *game;
+	t_list	*tmp;
+	char	*s;
+	int		i;
+	int		j;
 
-	game = (t_game *)param;
-	if (keycode == 53)
-		exit_prog();
-	if (keycode == 123)
-		game->player.posX -= 1;
-	if (keycode == 124)
-		game->player.posX += 1;
-	if (keycode == 125)
-		game->player.posY += 1;
-	if (keycode == 126)
-		game->player.posY -= 1;
-
-	mlx_clear_window(game->mlx_ptr, game->win_ptr);
-	draw_rectangle(game->player.posX, game->player.posY, 500, get_color(255, 255, 255), game);
-
-	return (0);
+	tmp = game->map.map_d;
+	j = 0;
+	while (tmp)
+	{
+		s = (char*)tmp->content;
+		i = -1;
+		while (s[++i])
+		{
+			if (s[i] == '2')
+				ft_lstadd_back(&(game->spritecoords), point_lstnew(i, j));
+			if (s[i] == 'S' || s[i] == 'E' || s[i] == 'W' || s[i] == 'N')
+			{
+				game->p.pos = point(i * CUBE_SIZE + CUBE_SIZE / 2,
+					j * CUBE_SIZE + CUBE_SIZE / 2);
+				game->p.cam_angle = get_char_angle(s[i]);
+			}
+		}
+		j++;
+		tmp = tmp->next;
+	}
 }
 
-/*void	init_game(t_game *game)
+int				main(int argc, char **argv)
 {
-	game->mlx_ptr = mlx_init();
-	if (!(game->win_ptr = mlx_new_window(game->mlx_ptr, game->infos.screenWidth, game->infos.screenHeight, "cub3d")))
-		error("Erreur lors de la création de la fenêtre.");
-	mlx_hook(game->win_ptr, 17, 1L << 17, exit_prog, 0);
-	mlx_key_hook(game->win_ptr, key_hook, 0);
-	mlx_loop(game->mlx_ptr);
-}*/
+	t_game	game;
+	int		screenshot;
 
-int main(int argc, char **argv)
-{
-	t_game game;
-
-	//if (argc < 2)
-	//	return(error("Argument manquant."));
-
-	parse(&game.infos, "test.cub");
+	if (argc < 2 || argc > 3)
+		error(ERR_ARG_COUNT);
+	screenshot = (argc == 3 && !ft_strncmp(argv[2], "--save",
+				(ft_strlen(argv[2]) > 6 ? ft_strlen(argv[2]) : 6)));
+	if (argc == 3 && !screenshot)
+		error(ERR_ARG_SAVE);
 	init_game(&game);
-	draw_rectangle(game.player.posX, game.player.posY, 500, get_color(255, 255, 255), &game);
+	parse_map(argv[1], &(game.map));
+	if (!(game.p.rays = malloc(sizeof(t_ray) * game.map.res[0])))
+		error(ERR_ALLOCATION);
+	setup_mlx(&game);
+	place_player(&game);
+	game.p.proj_dist = fabs((game.map.res[0] / 2.0) /
+			tan(to_radians(FOV / 2.0)));
+	mlx_hook(game.win_ptr, 2, 1L << 0, &key_pressed, &game);
+	mlx_hook(game.win_ptr, 3, 1L << 1, &key_released, &game);
+	mlx_hook(game.win_ptr, 17, 1L << 0, &close_event, &game);
+	mlx_loop_hook(game.mlx_ptr, &actions, &game);
+	render(&game, screenshot);
 	mlx_loop(game.mlx_ptr);
+	reset_map(&(game.map));
 }

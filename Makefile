@@ -1,49 +1,61 @@
 NAME =	cub3d
 SRCS = 	srcs/main.c \
-		\
-		srcs/utils/utils.c \
-		srcs/utils/errors.c \
-		srcs/utils/init.c \
-		srcs/utils/hooks.c \
-		\
-		srcs/draw/draw.c \
-		srcs/parser/parser.c
+		srcs/actions.c \
+		srcs/camera.c \
+		srcs/check_map.c \
+		srcs/events.c \
+		srcs/format_description.c \
+		srcs/ft_skipcharset.c \
+		srcs/image.c \
+		srcs/map.c \
+		srcs/math_utils.c \
+		srcs/parse_utils.c \
+		srcs/parser.c \
+		srcs/ray.c \
+		srcs/render.c \
+		srcs/rendersprite.c \
+		srcs/renderwall.c \
+		srcs/screenshot.c \
+		srcs/utils.c \
+		srcs/utils2.c \
+		srcs/utils3.c 
+
 
 OBJS = $(SRCS:.c=.o)
 LIBFT_PATH = libft/
 LIBFT = libft.a
-MLX_PATH = ./minilibx/
+MLX_PATH = ./minilibx-linux/
 MLX = libmlx.a
 FLAGS = #-Wall -Wextra -Werror
-MAKEFLAGS += --no-print-directory0
+MAKEFLAGS += --no-print-directory
 
 all: $(NAME)
 
 $(NAME):	$(OBJS)
-			@echo "\x1b[1m\x1b[32mMLX :\x1b[0m"
-			make -C $(MLX_PATH)
-			@echo "\x1b[1m\x1b[32mLIBFT :\x1b[0m"
+			@echo "\033[0;32m\e[1mMLX\033[0m"
+			@make -C $(MLX_PATH)
+			@echo "\033[0;32m\e[1mLIBFT\033[0m"
 			@mv $(MLX_PATH)$(MLX) .
-			make -C $(LIBFT_PATH)
-			@echo "\x1b[1m\x1b[32mCompiling cub3d\x1b[0m"
-			@gcc -I includes/ $(OBJS) $(LIBFT_PATH)$(LIBFT) $(MLX) -framework OpenGL -framework AppKit -o $(NAME)
+			@make -C $(LIBFT_PATH)
+			@echo "\033[0;32m\e[1mCompiling cub3d\033[0m"
+			@gcc -I includes/ $(OBJS) $(LIBFT_PATH)$(LIBFT) $(MLX) -lbsd -lX11 -lXext -lm -o $(NAME)
 			
 clean:		
-			@echo "\x1b[1m\x1b[31mCLEAN\x1b[0m"
+			@echo "\033[0;32m\e[1mCLEAN\033[0m"
 			@make clean -C $(MLX_PATH)
 			@make clean -C $(LIBFT_PATH)
 			@rm -rf $(OBJS)
 
 fclean:
-			@echo "\x1b[1m\x1b[31mFORCE CLEAN\x1b[0m"
+			@echo "\033[0;32m\e[1mFORCE CLEAN\033[0m"
 			@make clean -C $(MLX_PATH)
-			@make clean -C $(LIBFT_PATH)
+			@make fclean -C $(LIBFT_PATH)
 			@rm -rf $(OBJS)
-			@rm -rf $(LIBFT_PATH)$(LIBFT)
 			@rm -rf $(MLX)
 			@rm -rf $(NAME)
 
 re: fclean all
 
 %.o: %.c
-			gcc $(FLAGS) -I includes/ -c -o $@ $<
+			@echo "\033[0;32m\e[1m[cub3d]\033[0m Compiling $@"
+			@gcc $(FLAGS) -I includes/ -c -o $@ $<
