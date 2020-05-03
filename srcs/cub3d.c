@@ -6,7 +6,7 @@
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 17:02:44 by mweerts           #+#    #+#             */
-/*   Updated: 2020/05/02 22:46:58 by mweerts          ###   ########.fr       */
+/*   Updated: 2020/05/03 14:19:03 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,15 @@ int			expose(t_storage *s)
 		*(int *)&s->mlx->data_img[i++ * s->mlx->bpixel] = s->info->colorc;
 	while (i < s->info->rx * (s->info->ry))
 		*(int *)&s->mlx->data_img[i++ * s->mlx->bpixel] = s->info->colorf;
-	ft_raycaster(s, s->ray);
+	cast_rays(s, s->ray);
 	sprite_management(s, s->sprite, s->info->sprite_nb);
 	free(s->zbuffer);
-	ft_player_pos_cam(s, s->player);
+	camera_position(s, s->player);
 	mlx_put_image_to_window(s->mlx->ptr, s->mlx->win, s->mlx->img, 0, 0);
 	if (s->save == 0)
 		mlx_destroy_image(s->mlx->ptr, s->mlx->img);
 	if (s->move->esc == 1)
-		ft_exit_prog(s);
+		exit_window(s);
 	return (0);
 }
 
@@ -58,9 +58,9 @@ static int	management_program(t_info *map, t_mlx *mlx)
 		error("La creation de la fenetre a echoue.");
 	if ((init_texture(&storage, texture, 64, 64) == 0))
 		return (0);
-	mlx_hook(mlx->win, 2, 1L << 0, ft_keypress, &move);
-	mlx_hook(mlx->win, 3, 1L << 1, ft_keyrelease, &move);
-	mlx_hook(mlx->win, 17, 1L << 0, ft_exit_prog, &storage);
+	mlx_hook(mlx->win, 2, 1L << 0, key_pressed, &move);
+	mlx_hook(mlx->win, 3, 1L << 1, key_released, &move);
+	mlx_hook(mlx->win, 17, 1L << 0, exit_window, &storage);
 	mlx_loop_hook(mlx->ptr, expose, &storage);
 	mlx_loop(mlx->ptr);
 	return (0);
@@ -73,7 +73,7 @@ static int	init_program(int save_nb, char **av, t_mlx mlx)
 	init_map_infos(&info_map);
 	if (!read_management(av[1], &info_map))
 		return (0);
-	ft_check_len_map(&info_map);
+	map_len(&info_map);
 	get_nb_of_sprites(&info_map);
 	if (save_nb == 1)
 		save(&info_map, &mlx);

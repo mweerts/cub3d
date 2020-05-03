@@ -6,7 +6,7 @@
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 14:02:53 by mweerts           #+#    #+#             */
-/*   Updated: 2020/05/02 22:47:30 by mweerts          ###   ########.fr       */
+/*   Updated: 2020/05/03 14:29:02 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@
 # include <math.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <sys/stat.h>
 # include <fcntl.h>
-# include "get_next_line.h"
+# include "libft.h"
 # include "mlx.h"
 
 # define KEY_LEFT 65361
@@ -31,8 +32,8 @@
 # define MAXRES_X 1920
 # define MAXRES_Y 1080
 
-# define MOVE_SPEED 0.07
-# define CAM_SPEED 0.06
+# define MOVE_SPEED 0.05
+# define CAM_SPEED 0.05
 
 typedef struct		s_sprite
 {
@@ -208,42 +209,35 @@ void				init_storage(t_info *info_map, t_mlx *mlx,
 t_player			*player, t_storage *storage);
 void				fill_storage(t_move *move, t_ray *ray,
 									t_storage *storage);
-void				ft_check_len_map(t_info *info_map);
+void				map_len(t_info *info_map);
 void				error_texture(char *texture);
 void				error(char *msg);
-int					ft_exit_prog(t_storage *storage);
-int					ft_keyrelease(int keycode, t_move *move);
-int					ft_keypress(int keycode, t_move *move);
-void				ft_player_pos_cam(t_storage *storage, t_player *player);
-void				ft_raycaster(t_storage *storage, t_ray *ray);
+int					exit_window(t_storage *storage);
+int					key_released(int keycode, t_move *move);
+int					key_pressed(int keycode, t_move *move);
+void				camera_position(t_storage *storage, t_player *player);
+void				cast_rays(t_storage *storage, t_ray *ray);
 int					init_texture(t_storage *storage, t_texture *texture,
 									int w, int h);
 void				texture_management(t_storage *storage, t_ray *ray,
 											int x);
-void				draw_wall_texture_vertically(t_storage *s, t_texture *texture,
+void				draw_wall_north_south(t_storage *s, t_texture *texture,
 											t_text_info	*text_i, int x);
-void				draw_wall_texture_horizontally(t_storage *s, t_texture *texture,
+void				draw_wall_east_west(t_storage *s, t_texture *texture,
 											t_text_info *text_i, int x);
-void				*ft_memcpy(void *dst, const void *src, int n);
-int					ft_strncmp(const char *s1, const char *s2, int n);
 void				save(t_info *info_map, t_mlx *mlx);
 int					get_player_position(t_info *info_map, int i, int x);
 void				get_nb_of_sprites(t_info *info_map);
 void				get_sprite_position(t_info *info_map, t_storage *storage);
 void				sprite_management(t_storage *s, t_sprite *sprite,
 										int sprite_nb);
-int					ft_strlen(char *s);
-void				ft_putstr(char *s);
 int					ft_is_wall(char c);
-int					ft_atoi(char *s);
 char				*ft_strjoin_point(char *s1, char *s2);
 int					check_rgb(int nb[4], int n);
 int					get_infos_resolution(char *s, t_info *info_map);
 void				free_tab(char **tab);
 int					check_space_rgb(char **tab, int i);
 char				*ft_strdup_map(char *s);
-char				*ft_strcpy(char *dest, char *src);
 int					get_next_line(int fd, char **line);
-char				**ft_split(char const *s, char c);
 
 #endif

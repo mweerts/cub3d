@@ -6,7 +6,7 @@
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 15:34:18 by mweerts           #+#    #+#             */
-/*   Updated: 2020/05/02 22:48:40 by mweerts          ###   ########.fr       */
+/*   Updated: 2020/05/03 13:41:28 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void		texture_management(t_storage *s, t_ray *ray, int x)
 
 	init_value(s, &text_i, ray);
 	if (ray->side == 1)
-		draw_wall_texture_vertically(s, s->texture, &text_i, x);
+		draw_wall_north_south(s, s->texture, &text_i, x);
 	else
-		draw_wall_texture_horizontally(s, s->texture, &text_i, x);
+		draw_wall_east_west(s, s->texture, &text_i, x);
 }

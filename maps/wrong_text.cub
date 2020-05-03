@@ -1,6 +1,6 @@
 R   1000 1000
 
-SO  ./textures/bricks.xpm
+SO  ./
 NO  ./textures/wood.xpm
 WE  ./textures/dirt.xpm
 EA  ./textures/stone.xpm
@@ -8,7 +8,6 @@ S   ./textures/unicorn.xpm
 
 F   0, 100, 0
 C   30, 140, 255
-
 
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1

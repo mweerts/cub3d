@@ -6,7 +6,7 @@
 #    By: mweerts <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/19 16:29:40 by mweerts           #+#    #+#              #
-#    Updated: 2020/05/02 22:47:58 by mweerts          ###   ########.fr        #
+#    Updated: 2020/05/03 14:19:32 by mweerts          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,19 +22,12 @@ SRCS =	srcs/cub3d.c \
 		srcs/init.c \
 		srcs/utils.c \
 		srcs/utils2.c \
-		srcs/ft_split.c \
-		srcs/ft_strdup_map.c \
-		srcs/ft_strcpy.c \
-		srcs/get_next_line.c \
-		srcs/get_next_line_utils.c \
-		srcs/ft_fill_map.c \
-		srcs/ft_keyboard_action.c \
-		srcs/ft_movement_player.c \
-		srcs/ft_exit_prog.c \
-		srcs/ft_raycaster.c \
+		srcs/fill_map.c \
+		srcs/hooks.c \
+		srcs/player.c \
+		srcs/exit_window.c \
+		srcs/ray.c \
 		srcs/texture.c \
-		srcs/ft_memcpy.c \
-		srcs/ft_strncmp.c \
 		srcs/draw_wall_texture.c \
 		srcs/save.c \
 		srcs/sprite.c \
@@ -45,27 +38,32 @@ LIBFT_PATH = libft/
 LIBFT = libft.a
 MLX_PATH = ./minilibx-linux/
 MLX = libmlx.a
+LIBFT_PATH = ./libft/
+LIBFT = libft.a
 FLAGS = #-Wall -Wextra -Werror
 MAKEFLAGS += --no-print-directory
-INCLUDES = -I includes/ 
-
+INCLUDES = -I includes/ -I libft/includes
+FLAGS_MLX = -lbsd -lX11 -lXext -lm
 
 all: $(NAME)
 
 $(NAME):	$(OBJS)
 			@echo "\033[0;32m\e[1mMLX\033[0m"
 			@make -C $(MLX_PATH)
+			@make -C $(LIBFT_PATH)
 			@echo "\033[0;32m\e[1mCompiling cub3d\033[0m"
-			@gcc $(INCLUDES) $(OBJS) $(MLX_PATH)$(MLX) -lbsd -lX11 -lXext -lm -o $(NAME)
+			@gcc $(INCLUDES) $(OBJS) $(MLX_PATH)$(MLX) $(LIBFT_PATH)$(LIBFT) $(FLAGS_MLX) -o $(NAME)
 			
 clean:		
 			@echo "\033[0;32m\e[1mCLEAN\033[0m"
 			@make clean -C $(MLX_PATH)
+			@make clean -C $(LIBFT_PATH)
 			@rm -rf $(OBJS)
 
 fclean:
 			@echo "\033[0;32m\e[1mFORCE CLEAN\033[0m"
 			@make clean -C $(MLX_PATH)
+			@make fclean -C $(LIBFT_PATH)
 			@rm -rf $(OBJS)
 			@rm -rf $(MLX)
 			@rm -rf $(NAME)

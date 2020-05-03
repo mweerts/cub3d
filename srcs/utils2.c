@@ -5,83 +5,71 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/07 14:57:50 by mweerts           #+#    #+#             */
-/*   Updated: 2020/05/02 22:22:12 by mweerts          ###   ########.fr       */
+/*   Created: 2019/12/09 14:33:55 by mweerts           #+#    #+#             */
+/*   Updated: 2020/05/03 14:17:44 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		check_rgb(int nb[4], int n)
+int		ft_is_wall(char c)
 {
-	if (nb[0] > 255 || nb[1] > 255 || nb[2] > 255)
-		return (-2);
-	else if (nb[0] < 0 || nb[1] < 0 || nb[2] < 0)
-		return (-2);
-	else
-		nb[n] = 65536 * nb[0] + 256 * nb[1] + nb[2];
-	return (nb[n]);
+	if (c == '1')
+		return (1);
+	return (0);
 }
 
-int		get_texture_west_east(char *s, t_info *info_map)
+char	*ft_strjoin_point(char *s1, char *s2)
 {
-	int	i;
-
-	i = 2;
-	while (s[i] == ' ')
-		i++;
-	if (s[0] == 'W')
-	{
-		if (info_map->west_t[0] != '\0')
-			error_texture(s);
-		ft_strcpy(info_map->west_t, &s[i]);
-	}
-	else if (s[0] == 'E')
-	{
-		if (info_map->east_t[0] != '\0')
-			error_texture(s);
-		ft_strcpy(info_map->east_t, &s[i]);
-	}
-	else if (s[0] == 'S')
-	{
-		if (info_map->sprite_t[0] != '\0')
-			error_texture(s);
-		ft_strcpy(info_map->sprite_t, &s[i]);
-	}
-	return (1);
-}
-
-int		get_infos_resolution(char *s, t_info *info_map)
-{
-	if ((get_resolution(s, info_map)) == 0)
-		error("Resolution invalide.");
-	return (1);
-}
-
-void	free_tab(char **tab)
-{
-	int	i;
+	int		i;
+	int		n;
+	int		len_s;
+	char	*new_s;
 
 	i = 0;
-	while (tab[i])
-		free(tab[i++]);
-	free(tab);
+	len_s = ft_strlen(s1) + ft_strlen(s2);
+	new_s = (char *)malloc(sizeof(char) * (len_s + 2));
+	if (new_s == NULL)
+		return (0);
+	while (s1[i])
+	{
+		new_s[i] = s1[i];
+		i++;
+	}
+	n = 0;
+	while (s2[n])
+		new_s[i++] = s2[n++];
+	new_s[i++] = '.';
+	new_s[i] = '\0';
+	free(s1);
+	return (new_s);
 }
 
-int		check_space_rgb(char **tab, int i)
+char	*ft_strdup_map(char *s)
 {
-	int	n;
-	int	valid;
+	int		i;
+	int		n;
+	char	*dest;
 
+	i = 0;
 	n = 0;
-	valid = 0;
-	while (tab[i][n])
+	while (s[i])
 	{
-		if (tab[i][n] != ' ')
-			valid = 1;
-		n++;
+		if (s[i] != ' ')
+			n++;
+		i++;
 	}
-	if (valid == 0)
-		return (0);
-	return (1);
+	if (!(dest = (char *)malloc(sizeof(char) * n + 1)))
+		return (NULL);
+	i = 0;
+	n = 0;
+	while (s[i])
+	{
+		if (s[i] != ' ')
+			dest[n++] = s[i];
+		i++;
+	}
+	dest[n] = '\0';
+	free(s);
+	return (dest);
 }

@@ -6,7 +6,7 @@
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/02 22:32:57 by mweerts           #+#    #+#             */
-/*   Updated: 2020/05/02 22:46:58 by mweerts          ###   ########.fr       */
+/*   Updated: 2020/05/03 13:59:29 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,5 @@ void		save(t_info *info_map, t_mlx *mlx)
 	init_texture(&storage, texture, 64, 64);
 	expose(&storage);
 	write_bmp_file(&storage);
-	ft_exit_prog(&storage);
+	exit_window(&storage);
 }

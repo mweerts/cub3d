@@ -6,13 +6,13 @@
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 16:57:46 by mweerts           #+#    #+#             */
-/*   Updated: 2020/05/02 22:37:01 by mweerts          ###   ########.fr       */
+/*   Updated: 2020/05/03 13:41:28 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_wall_texture_vertically(t_storage *s, t_texture *texture,
+void	draw_wall_north_south(t_storage *s, t_texture *texture,
 t_text_info *text_i, int x)
 {
 	if (s->ray->raydir_y >= 0)
@@ -41,7 +41,7 @@ t_text_info *text_i, int x)
 	}
 }
 
-void	draw_wall_texture_horizontally(t_storage *s, t_texture *texture,
+void	draw_wall_east_west(t_storage *s, t_texture *texture,
 t_text_info *text_i, int x)
 {
 	if (s->ray->raydir_x >= 0)

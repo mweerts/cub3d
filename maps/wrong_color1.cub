@@ -6,7 +6,7 @@ WE  ./textures/dirt.xpm
 EA  ./textures/stone.xpm
 S   ./textures/unicorn.xpm
 
-F   0, 100, 0
+F   0, 256, 0
 C   30, 140, 255
 
 
