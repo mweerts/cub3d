@@ -6,7 +6,7 @@
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 14:45:56 by mweerts           #+#    #+#             */
-/*   Updated: 2020/05/03 16:58:10 by mweerts          ###   ########.fr       */
+/*   Updated: 2020/05/03 19:10:41 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static int	check_map(t_info *info_map)
 			if (info_map->map[i][x] != '0' && info_map->map[i][x] != '1' &&
 			info_map->map[i][x] != '2' && info_map->map[i][x] != 'N' &&
 			info_map->map[i][x] != 'S' && info_map->map[i][x] != 'E' &&
-			info_map->map[i][x] != 'W')
+			info_map->map[i][x] != 'W' && info_map->map[i][x] != ' ')
 				error("Caractere invalide.");
 			if (info_map->map[i][x] == 'N' || info_map->map[i][x] == 'S' ||
 			info_map->map[i][x] == 'E' || info_map->map[i][x] == 'W')
@@ -97,8 +97,7 @@ int			parse_management(t_info *info_map, t_len_map *len)
 {
 	if (!parse_infos(info_map))
 		return (0);
-	if (!parse_map_vertically(info_map) ||
-	!parse_map_horizontally(info_map, len))
+	if (!parse_map_vertically(info_map) || !parse_map_horizontally(info_map, len))
 		error("La map n'est pas entouree de murs.");
 	if (!check_map(info_map))
 		return (0);

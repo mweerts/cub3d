@@ -6,7 +6,7 @@
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 14:44:55 by mweerts           #+#    #+#             */
-/*   Updated: 2020/05/02 22:14:34 by mweerts          ###   ########.fr       */
+/*   Updated: 2020/05/03 19:33:45 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int			parse_map_vertically(t_info *info_map)
 	while (info_map->map[0][i])
 	{
 		if (info_map->map[0][i] != '1')
-			return (0);
+			error (0);
 		i++;
 	}
 	i = 0;
@@ -103,7 +103,7 @@ int			parse_map_horizontally(t_info *info_map, t_len_map *len)
 		else if (len->check < 0)
 		{
 			if (!check_line2(info_map, len, line))
-				return (0);
+				return (0);		
 		}
 		line++;
 	}

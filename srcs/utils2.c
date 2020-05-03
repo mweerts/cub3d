@@ -6,7 +6,7 @@
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 14:33:55 by mweerts           #+#    #+#             */
-/*   Updated: 2020/05/03 14:17:44 by mweerts          ###   ########.fr       */
+/*   Updated: 2020/05/03 19:15:58 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		ft_is_wall(char c)
 {
-	if (c == '1')
+	if (c == '1' || c == ' ')
 		return (1);
 	return (0);
 }
@@ -48,28 +48,23 @@ char	*ft_strjoin_point(char *s1, char *s2)
 char	*ft_strdup_map(char *s)
 {
 	int		i;
-	int		n;
 	char	*dest;
 
 	i = 0;
-	n = 0;
 	while (s[i])
-	{
-		if (s[i] != ' ')
-			n++;
 		i++;
-	}
-	if (!(dest = (char *)malloc(sizeof(char) * n + 1)))
+	if (!(dest = (char *)malloc(sizeof(char) * i + 1)))
 		return (NULL);
 	i = 0;
-	n = 0;
 	while (s[i])
 	{
-		if (s[i] != ' ')
-			dest[n++] = s[i];
+		if (s[i] == ' ')
+			dest[i] = '1';
+		else
+			dest[i] = s[i];
 		i++;
 	}
-	dest[n] = '\0';
+	dest[i] = '\0';
 	free(s);
 	return (dest);
 }
