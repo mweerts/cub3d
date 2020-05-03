@@ -6,7 +6,7 @@
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 20:31:57 by mweerts           #+#    #+#             */
-/*   Updated: 2020/05/03 13:44:02 by mweerts          ###   ########.fr       */
+/*   Updated: 2020/05/03 17:00:09 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef struct	s_number
 }				t_number;
 
 /*
-		LIBFT
+**		LIBFT
 */
 
 void			*ft_memset(void *b, int c, size_t len);
@@ -114,13 +114,13 @@ int				ft_abs(int nb);
 char			*ft_strcpy(char *dest, char *src);
 
 /*
-		Get Next Line
+**		Get Next Line
 */
 
 int				get_next_line(int fd, char **line);
 
 /*
-		FT_PRINTF
+**		FT_PRINTF
 */
 
 int				ft_printf(const char *str, ...);

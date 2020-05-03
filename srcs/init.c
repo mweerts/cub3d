@@ -6,7 +6,7 @@
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 14:40:18 by mweerts           #+#    #+#             */
-/*   Updated: 2020/05/02 22:19:23 by mweerts          ###   ########.fr       */
+/*   Updated: 2020/05/03 15:58:07 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	init_map_infos(t_info *info_map)
 	info_map->west_t[0] = '\0';
 	info_map->east_t[0] = '\0';
 	info_map->sprite_t[0] = '\0';
-	info_map->colorf = 0;
-	info_map->colorc = 0;
+	info_map->colorf = -1;
+	info_map->colorc = -1;
 	info_map->player_x = 0;
 	info_map->player_y = 0;
 	info_map->player_start = '0';

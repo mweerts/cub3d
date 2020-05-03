@@ -6,7 +6,7 @@
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 11:49:26 by mweerts           #+#    #+#             */
-/*   Updated: 2020/05/02 22:22:12 by mweerts          ###   ########.fr       */
+/*   Updated: 2020/05/03 15:58:16 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int			get_resolution(char *s, t_info *info_map)
 	return (1);
 }
 
-static int	get_texture_path(char *s, t_info *info_map)
+static int	get_texture_north_south(char *s, t_info *info_map)
 {
 	int	i;
 
@@ -78,14 +78,12 @@ static int	convert_rgb(char *s)
 
 static int	get_color(char *s, t_info *info_map)
 {
-	if (s[0] == 'F' && info_map->colorf == 0)
+	if (s[0] == 'F' && info_map->colorf == -1)
 		info_map->colorf = convert_rgb(s);
-	else if (s[0] == 'C' && info_map->colorc == 0)
+	else if (s[0] == 'C' && info_map->colorc == -1)
 		info_map->colorc = convert_rgb(s);
 	else
 		error("Couleur deja initialisee.");
-	if (info_map->colorf == -1 || info_map->colorc == -1)
-		return (0);
 	return (1);
 }
 
@@ -95,7 +93,7 @@ int			get_map_infos(char *s, t_info *info_map)
 		return (get_infos_resolution(s, info_map));
 	else if ((s[0] == 'N' && s[1] == 'O') || (s[0] == 'S' && s[1] == 'O'))
 	{
-		if ((get_texture_path(s, info_map)) == 0)
+		if ((get_texture_north_south(s, info_map)) == 0)
 			return (0);
 	}
 	else if ((s[0] == 'W' && s[1] == 'E')

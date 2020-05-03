@@ -6,7 +6,7 @@
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 14:06:09 by mweerts           #+#    #+#             */
-/*   Updated: 2020/05/02 22:15:30 by mweerts          ###   ########.fr       */
+/*   Updated: 2020/05/03 16:14:25 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static int	read_map(t_info *info_map, int fd, char *line)
 	i = 0;
 	if (!(map_tmp = (char *)malloc(sizeof(char))))
 		error("L'allocation a echouee.");
+	if (line[0] == '\0')
+		error("Description de la map introuvable.");
 	map_tmp[0] = 0;
 	line = ft_strdup_map(line);
 	map_tmp = ft_strjoin_point(map_tmp, line);

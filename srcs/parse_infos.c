@@ -6,7 +6,7 @@
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 14:45:56 by mweerts           #+#    #+#             */
-/*   Updated: 2020/05/02 22:06:58 by mweerts          ###   ########.fr       */
+/*   Updated: 2020/05/03 16:58:10 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ int			check_extension(char *s)
 static int	ckeck_textopening(t_info *info_map)
 {
 	if ((open(info_map->north_t, O_RDONLY)) == -1)
-		return (0);
+		error("L'ouverture de la texture Nord a echoue.");
 	if ((open(info_map->south_t, O_RDONLY)) == -1)
-		return (0);
+		error("L'ouverture de la texture Sud a echoue.");
 	if ((open(info_map->east_t, O_RDONLY)) == -1)
-		return (0);
+		error("L'ouverture de la texture Est a echoue.");
 	if ((open(info_map->west_t, O_RDONLY)) == -1)
-		return (0);
+		error("L'ouverture de la texture Ouest a echoue.");
 	return (1);
 }
 
@@ -53,6 +53,10 @@ static int	parse_infos(t_info *info_map)
 		error("Resolution incorrecte.");
 	info_map->rx = info_map->rx > MAXRES_X ? MAXRES_X : info_map->rx;
 	info_map->ry = info_map->ry > MAXRES_Y ? MAXRES_Y : info_map->ry;
+	if (info_map->colorf == -1)
+		error("Couleur du sol manquante.");
+	if (info_map->colorc == -1)
+		error("Couleur du ciel manquante.");
 	if (info_map->colorf < 0 || info_map->colorc < 0)
 		error("La couleur specifiee est invalide.");
 	if (!ckeck_textopening(info_map))
