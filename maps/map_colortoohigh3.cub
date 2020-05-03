@@ -1,9 +1,10 @@
 R 1920 1080
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
-S ./path_to_the_sprite_texture
+SO  ./textures/bricks.XPM
+NO  ./textures/stone.XPM
+WE  ./textures/mossystone.XPM
+EA  ./textures/concrete.XPM
+S   ./textures/ring.XPM
+
 F 220,100,0
 C 225,100,256
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1

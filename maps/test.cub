@@ -1,17 +1,10 @@
 R   1000 1000
 
-SO  ./textures/bricks.XPM
-
-
-NO  ./textures/stone.XPM
-
-
-WE  ./textures/mossystone.XPM
-
-
-EA  ./textures/concrete.XPM
-
-S   ./textures/ring.XPM
+SO  ./textures/bricks.xpm
+NO  ./textures/wood.xpm
+WE  ./textures/dirt.xpm
+EA  ./textures/stone.xpm
+S   ./textures/unicorn.xpm
 
 F   20,120,20
 

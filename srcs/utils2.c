@@ -5,50 +5,83 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/01 15:35:55 by mweerts           #+#    #+#             */
-/*   Updated: 2020/05/01 19:37:12 by mweerts          ###   ########.fr       */
+/*   Created: 2020/02/07 14:57:50 by mweerts           #+#    #+#             */
+/*   Updated: 2020/05/02 22:22:12 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void		ft_strdel(char **as)
+int		check_rgb(int nb[4], int n)
 {
-	if (as && *as)
+	if (nb[0] > 255 || nb[1] > 255 || nb[2] > 255)
+		return (-2);
+	else if (nb[0] < 0 || nb[1] < 0 || nb[2] < 0)
+		return (-2);
+	else
+		nb[n] = 65536 * nb[0] + 256 * nb[1] + nb[2];
+	return (nb[n]);
+}
+
+int		get_texture_west_east(char *s, t_info *info_map)
+{
+	int	i;
+
+	i = 2;
+	while (s[i] == ' ')
+		i++;
+	if (s[0] == 'W')
 	{
-		free(*as);
-		*as = 0;
+		if (info_map->west_t[0] != '\0')
+			error_texture(s);
+		ft_strcpy(info_map->west_t, &s[i]);
 	}
+	else if (s[0] == 'E')
+	{
+		if (info_map->east_t[0] != '\0')
+			error_texture(s);
+		ft_strcpy(info_map->east_t, &s[i]);
+	}
+	else if (s[0] == 'S')
+	{
+		if (info_map->sprite_t[0] != '\0')
+			error_texture(s);
+		ft_strcpy(info_map->sprite_t, &s[i]);
+	}
+	return (1);
 }
 
-t_point		point(double x, double y)
+int		get_infos_resolution(char *s, t_info *info_map)
 {
-	t_point point;
-
-	point.x = x;
-	point.y = y;
-	return (point);
+	if ((get_resolution(s, info_map)) == 0)
+		error("Resolution invalide.");
+	return (1);
 }
 
-t_list		*point_lstnew(double x, double y)
+void	free_tab(char **tab)
 {
-	t_point	*point;
-	t_list	*elem;
+	int	i;
 
-	if (!(point = malloc(sizeof(t_point))))
-		error("Erreur d'allocation memoire.");
-	point->x = x;
-	point->y = y;
-	if (!(elem = ft_lstnew(point)))
-		error("Erreur d'allocation memoire.");
-	return (elem);
+	i = 0;
+	while (tab[i])
+		free(tab[i++]);
+	free(tab);
 }
 
-void		swap(t_point *p, t_point *p2)
+int		check_space_rgb(char **tab, int i)
 {
-	t_point tmp;
+	int	n;
+	int	valid;
 
-	tmp = *p;
-	*p = *p2;
-	*p2 = tmp;
+	n = 0;
+	valid = 0;
+	while (tab[i][n])
+	{
+		if (tab[i][n] != ' ')
+			valid = 1;
+		n++;
+	}
+	if (valid == 0)
+		return (0);
+	return (1);
 }

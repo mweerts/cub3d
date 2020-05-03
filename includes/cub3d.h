@@ -5,156 +5,245 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/02 02:00:51 by mweerts           #+#    #+#             */
-/*   Updated: 2020/05/01 19:59:44 by mweerts          ###   ########.fr       */
+/*   Created: 2019/12/09 14:02:53 by mweerts           #+#    #+#             */
+/*   Updated: 2020/05/02 22:47:30 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "mlx.h"
-# include "libft.h"
 # include <math.h>
-# include <stdio.h>
-# include <stdlib.h>
 # include <unistd.h>
+# include <stdlib.h>
 # include <fcntl.h>
-# include <string.h>
+# include "get_next_line.h"
+# include "mlx.h"
 
-# define EXIT_SUCCESS 0
-# define EXIT_FAILURE 1
-# define PI 3.1415926535
-# define FACE_NORTH 0
-# define FACE_SOUTH 1
-# define FACE_WEST 2
-# define FACE_EAST 3
-# define TRANSPARENT_COLOR 0x000000
-# define MAX_WIDTH 1920
-# define MAX_HEIGHT	1080
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
+# define KEY_W 119
+# define KEY_S 115
+# define KEY_A 97
+# define KEY_D 100
+# define KEY_ESC 65307
 
-# define K_UP 119
-# define K_DOWN 115
-# define K_LEFT 97
-# define K_RIGHT 100
-# define K_CAMLEFT 65361
-# define K_CAMRIGHT 65363
-# define K_ESC 65307
+# define MAXRES_X 1920
+# define MAXRES_Y 1080
 
-# define CUBE_SIZE 1920
-# define PLAYER_SIZE 67
-# define MOVE_SPEED 200
-# define CAM_SPEED 2.33
-# define FOV 60
+# define MOVE_SPEED 0.07
+# define CAM_SPEED 0.06
 
-typedef struct		s_map
+typedef struct		s_sprite
 {
-	t_list			*map_d;
-	char			*tex_no;
-	char			*tex_so;
-	char			*tex_we;
-	char			*tex_ea;
-	char			*tex_s;
-	int				res[2];
-	int				col_f;
-	int				col_c;
-}					t_map;
+	double	x;
+	double	y;
+}					t_sprite;
 
-typedef struct		s_image
+typedef struct		s_sprite_info
 {
-	void			*img;
-	char			*data;
-	int				size_line;
-	int				bpp;
-	int				w;
-	int				h;
-	int				endian;
-}					t_image;
+	int		i;
+	int		d;
+	int		nb;
+	double	x;
+	double	y;
+	double	inv_det;
+	double	transformx;
+	double	transformy;
+	int		screen_x;
+	int		height;
+	int		drawstart_y;
+	int		drawend_y;
+	int		width;
+	int		drawstart_x;
+	int		drawend_x;
+	int		texwidth;
+	int		texheight;
+	int		texx;
+	int		texy;
+	int		texture;
+}					t_sprite_info;
 
-typedef struct		s_point
+typedef	struct		s_info
 {
-	double			x;
-	double			y;
-}					t_point;
-
-typedef struct		s_ray
-{
-	double			angle;
-	double			distance;
-	double			wall;
-	int				face;
-}					t_ray;
+	char	**map;
+	int		len_map;
+	int		len_x;
+	int		len_y;
+	int		rx;
+	int		ry;
+	char	north_t[256];
+	char	south_t[256];
+	char	west_t[256];
+	char	east_t[256];
+	char	sprite_t[256];
+	int		colorf;
+	int		colorc;
+	int		player_y;
+	int		player_x;
+	char	player_start;
+	int		sprite_nb;
+}					t_info;
 
 typedef struct		s_player
 {
-	t_point			pos;
-	double			cam_angle;
-	double			proj_dist;
-	t_ray			*rays;
+	double	pos_y;
+	double	pos_x;
+	float	x;
+	float	y;
+	double	dir_x;
+	double	dir_y;
 }					t_player;
 
-typedef struct		s_game
+typedef struct		s_mlx
 {
-	t_player		p;
-	t_image			img;
-	t_image			tex_no;
-	t_image			tex_so;
-	t_image			tex_we;
-	t_image			tex_ea;
-	t_image			tex_s;
-	double			floor_coef;
-	t_list			*spritecoords;
-	t_map			map;
-	void			*mlx_ptr;
-	void			*win_ptr;
-	int				keys[8];
-}					t_game;
+	void	*ptr;
+	void	*win;
+	char	*img;
+	char	*data_img;
+	int		bpixel;
+	int		size_line;
+	int		endian;
+}					t_mlx;
 
-t_image				get_texture_face(t_game *game, int face);
-t_point				point(double x, double y);
-t_list				*point_lstnew(double x, double y);
-double				distance(t_point p, t_point p2);
-double				atan2(double y, double x);
-double				to_radians(double angle);
-double				get_angle(int key);
-double				get_char_angle(char c);
-double				min(double d, double e);
-double				constrain(double d, double min, double max);
-double				cast(t_game *game, t_ray *ray);
-void				render_sprites(t_game *game);
-void				render_wall(t_game *game, t_ray *ray, int x);
-void				reset_map(t_map *map);
-void				init_game(t_game *game);
-void				image_set_pixel(t_image *img, int x, int y, int color);
-void				quit(t_game *game);
-void				error(char *message);
-void				save_image(t_image img);
-void				set_tile_at(t_point point, char val, t_list *map_d);
-void				set_tile_at_grid(t_point point, char val, t_list *map_d);
-void				swap(t_point *p1, t_point *p2);
-int					key_released(int key, void *param);
-int					get_tile_at(t_point point, t_list *map_d);
-int					get_tile_at_grid(t_point point, t_list *map_d);
-int					image_get_color(t_image img, int x, int y);
-int					get_key_index(int key);
-int					check_map(t_list *map);
-int					format_description(t_map *map);
-int					parse_resolution(char *line, t_map *map);
-int					parse_texture(char *line, t_map *map);
-int					parse_color(char *line, t_map *map);
-int					is_filled(t_map map);
-int					parse_map(char *filename, t_map *map);
-int					key_pressed(int key, void *param);
-int					rgbtoint(int rgb[3]);
-int					close_event(void *param);
-int					actions(void *param);
-int					render(t_game *game, int save);
-int					load_image(char *file, t_image *img, void *mlx_ptr);
-int					check_end(char **line, t_map *map);
-int					ft_endswith(char *s, char *charset);
-size_t				ft_numberlen(int number, unsigned int baselen);
-size_t				ft_skipcharset(char *s, char *charset);
-int					ft_onlypattern(char *s, char *pattern);
-int					ft_inrange(int i, int min, int max);
+typedef struct		s_move
+{
+	int				esc;
+	int				foward;
+	int				retreat;
+	int				left;
+	int				right;
+	int				turn_left;
+	int				turn_right;
+}					t_move;
+
+typedef struct		s_ray
+{
+	double			plane_x;
+	double			plane_y;
+	double			cam_x;
+	double			raydir_x;
+	double			raydir_y;
+	int				map_x;
+	int				map_y;
+	double			sidedist_x;
+	double			sidedist_y;
+	double			deltadist_x;
+	double			deltadist_y;
+	double			perpwalldist;
+	int				step_x;
+	int				step_y;
+	int				hit;
+	int				side;
+}					t_ray;
+
+typedef struct		s_len_map
+{
+	int		l1;
+	int		l2;
+	int		check;
+}					t_len_map;
+
+typedef struct		s_text_info
+{
+	int		lineheight;
+	int		drawstart;
+	int		drawend;
+	double	wallx;
+	int		x;
+	int		y;
+	int		width;
+	int		height;
+}					t_text_info;
+
+typedef struct		s_texture
+{
+	void	*ptr;
+	char	*img;
+	int		bpixel;
+	int		size_line;
+	int		endian;
+}					t_texture;
+
+typedef struct		s_save
+{
+	int			fd;
+	int			size;
+	int			unused;
+	int			offset_begin;
+	int			header_bytes;
+	short int	plane;
+	short int	bpixel;
+}					t_save;
+
+typedef	struct		s_storage
+{
+	t_info		*info;
+	t_mlx		*mlx;
+	t_player	*player;
+	t_move		*move;
+	t_ray		*ray;
+	t_texture	*texture;
+	t_sprite	sprite[50];
+	double		*zbuffer;
+	int			save;
+}					t_storage;
+
+int					expose(t_storage *storage);
+int					read_management(char *s, t_info *info_map);
+int					check_extension (char *s);
+int					parse_management(t_info *info_map, t_len_map *len);
+int					parse_map_vertically(t_info *info_map);
+int					parse_map_horizontally(t_info *info_map, t_len_map *len);
+int					get_resolution(char *s, t_info *info_map);
+int					get_texture_west_east(char *s, t_info *info_map);
+int					get_map_infos(char *s, t_info *info_map);
+int					ft_management_error(int error, char *s);
+void				init_map_infos(t_info *info_map);
+void				init_movements(t_move *move);
+void				init_player(t_player *player);
+void				init_ray(t_ray *ray);
+void				init_player_position(t_storage *storage, t_player *player);
+void				init_storage(t_info *info_map, t_mlx *mlx,
+t_player			*player, t_storage *storage);
+void				fill_storage(t_move *move, t_ray *ray,
+									t_storage *storage);
+void				ft_check_len_map(t_info *info_map);
+void				error_texture(char *texture);
+void				error(char *msg);
+int					ft_exit_prog(t_storage *storage);
+int					ft_keyrelease(int keycode, t_move *move);
+int					ft_keypress(int keycode, t_move *move);
+void				ft_player_pos_cam(t_storage *storage, t_player *player);
+void				ft_raycaster(t_storage *storage, t_ray *ray);
+int					init_texture(t_storage *storage, t_texture *texture,
+									int w, int h);
+void				texture_management(t_storage *storage, t_ray *ray,
+											int x);
+void				draw_wall_texture_vertically(t_storage *s, t_texture *texture,
+											t_text_info	*text_i, int x);
+void				draw_wall_texture_horizontally(t_storage *s, t_texture *texture,
+											t_text_info *text_i, int x);
+void				*ft_memcpy(void *dst, const void *src, int n);
+int					ft_strncmp(const char *s1, const char *s2, int n);
+void				save(t_info *info_map, t_mlx *mlx);
+int					get_player_position(t_info *info_map, int i, int x);
+void				get_nb_of_sprites(t_info *info_map);
+void				get_sprite_position(t_info *info_map, t_storage *storage);
+void				sprite_management(t_storage *s, t_sprite *sprite,
+										int sprite_nb);
+int					ft_strlen(char *s);
+void				ft_putstr(char *s);
+int					ft_is_wall(char c);
+int					ft_atoi(char *s);
+char				*ft_strjoin_point(char *s1, char *s2);
+int					check_rgb(int nb[4], int n);
+int					get_infos_resolution(char *s, t_info *info_map);
+void				free_tab(char **tab);
+int					check_space_rgb(char **tab, int i);
+char				*ft_strdup_map(char *s);
+char				*ft_strcpy(char *dest, char *src);
+int					get_next_line(int fd, char **line);
+char				**ft_split(char const *s, char c);
 
 #endif

@@ -5,75 +5,83 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mweerts <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/01 15:33:52 by mweerts           #+#    #+#             */
-/*   Updated: 2020/05/01 19:41:34 by mweerts          ###   ########.fr       */
+/*   Created: 2019/12/09 14:33:55 by mweerts           #+#    #+#             */
+/*   Updated: 2020/05/02 22:20:13 by mweerts          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		close_event(void *param)
+int		ft_strlen(char *s)
 {
-	t_game *game;
+	int	i;
 
-	game = (t_game*)param;
-	quit(game);
+	i = 0;
+	if (s == NULL)
+		return (0);
+	while (s[i])
+		i++;
+	return (i);
+}
+
+void	ft_putstr(char *s)
+{
+	write(1, s, ft_strlen(s));
+}
+
+int		ft_is_wall(char c)
+{
+	if (c == '1')
+		return (1);
 	return (0);
 }
 
-int		ft_endswith(char *str, char *end)
+int		ft_atoi(char *str)
 {
-	int i;
-	int len;
+	int		i;
+	int		nb;
+	int		negpos;
 
-	i = ft_strlen(end);
-	if ((len = ft_strlen(str)) < i)
-		return (0);
-	while (i > 0)
-	{
-		if (str[len - i] != end[ft_strlen(end) - i])
-			return (0);
-		i--;
-	}
-	return (1);
-}
-
-int		ft_inrange(int i, int min, int max)
-{
-	return (i >= min && i < max);
-}
-
-size_t	ft_numberlen(int number, unsigned int baselen)
-{
-	size_t			res;
-	unsigned int	un;
-
-	res = 1 + (number < 0);
-	un = (number < 0 ? -number : number);
-	while (un / baselen > 0)
-	{
-		res++;
-		un /= baselen;
-	}
-	return (res);
-}
-
-int		ft_onlypattern(char *str, char *pattern)
-{
-	int i;
-	int j;
-	int patternlen;
-
-	patternlen = ft_strlen(pattern);
 	i = 0;
-	j = 0;
-	while (str[i])
-	{
-		if (str[i] != pattern[j])
-			return (0);
+	nb = 0;
+	negpos = 1;
+	while ((str[i] == ' ') || (str[i] > 6 && str[i] < 14))
 		i++;
-		j++;
-		j = j % patternlen;
+	if (str[i] == '-')
+		negpos = negpos * -1;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	while (str[i] != '\0' && str[i] >= '0' && str[i] <= '9')
+	{
+		nb = nb * 10 + (str[i] - '0');
+		i++;
 	}
-	return (1);
+	nb = nb * negpos;
+	return (nb);
+}
+
+char	*ft_strjoin_point(char *s1, char *s2)
+{
+	int		i;
+	int		n;
+	int		len_s;
+	char	*new_s;
+
+	i = 0;
+	len_s = ft_strlen(s1) + ft_strlen(s2);
+	new_s = (char *)malloc(sizeof(char) * (len_s + 2));
+	if (new_s == NULL)
+		return (0);
+	while (s1[i])
+	{
+		new_s[i] = s1[i];
+		i++;
+	}
+	n = 0;
+	while (s2[n])
+		new_s[i++] = s2[n++];
+	new_s[i++] = '.';
+	new_s[i] = '\0';
+	free(s1);
+	return (new_s);
 }
